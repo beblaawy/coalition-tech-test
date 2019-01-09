@@ -15,7 +15,7 @@ class Product extends Model
 			file_put_contents(self::getFilePath(), '[]');
 		}
 		$products = json_decode(file_get_contents(self::getFilePath()), true);
-		return collect($products ? $products : []);
+		return collect($products ? $products : [])->sortBy('created_at');
 	}
 
 	public static function createNewProduct (array $product) {
@@ -45,7 +45,7 @@ class Product extends Model
 
 			return $product;
 		})->toArray();
-		
+
 		self::saveProducts($products);
 	}
 
